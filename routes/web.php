@@ -97,6 +97,8 @@ Route::middleware(['auth'])->group(function (){
     Route::post('/orders/fetch/products', [OrderController::class, 'fetchProducts']);
     Route::post('/orders/fetch/inventories', [OrderController::class, 'fetchInventories']);
     Route::post('/orders/store', [OrderController::class, 'store']);
+    Route::delete('/order/delete/{order}', [OrderController::class, 'destroy_order']) -> name('destroy_order');
+    Route::patch('/order/update/{order}', [OrderController::class, 'update_order']) -> name('update_order');
 
     // Billings
     Route::get('/billings', [AdminController::class, 'index']);

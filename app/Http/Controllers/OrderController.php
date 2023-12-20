@@ -129,4 +129,20 @@ class OrderController extends Controller
             'data' => $lastMonthOrders
         ], 200);
     }
+
+    public function destroy_order($order){
+        try{
+            Billing::where('order_id','=', $order)->delete();
+            OrderItem::where('order_id','=', $order)->delete();
+            Order::where('order_id','=', $order)->delete();
+
+            session()->forget('error');
+            return back()->with('success', 'Order deleted successfully!');
+
+        }catch (QueryException $ex){
+            session()->forget('success');
+            return back()->with('error', 'Order was not deleted successfully.');
+        }
+    }
+
 }
