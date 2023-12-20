@@ -16,6 +16,7 @@
                 <th>Order ID</th>
                 <th>User</th>
                 <th>Date</th>
+                <th>Action</th>
             </tr>
             </thead>
 
@@ -25,6 +26,18 @@
                     <td>{{$order->order_id}}</td>
                     <td>{{$order->user->user_name}}</td>
                     <td>{{$order->order_date}}</td>
+                    <td>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#viewOrderModal{{$order->order_id}}" class="btn btn-sm btn-primary">
+                    <i class="fa fa-eye text-white"></i></a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#viewOrderModal{{$order->order_id}}" class="btn btn-sm btn-warning">
+                    <i class="fa fa-pencil text-white"></i></a>
+                        <form action="{{ route('destroy_order', $order->order_id)}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this order?\nThis will delete corresponding order_items and billing history.')"><i class="fa fa-trash"></i></button>
+                        </form>
+
+                    </td>
                 </tr>
             @endforeach
             </tbody>
